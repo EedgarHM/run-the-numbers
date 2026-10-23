@@ -1,26 +1,86 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Run the Numbers — US money, explained with real math</title>
-<meta name="description" content="Animated explainers and free calculators on how money works in the US: taxes, credit cards, retirement accounts, credit scores. Every number from official sources.">
-<link rel="stylesheet" href="style.css"></head><body><div class="wrap">
-<header class="top"><a class="brand" href="./">RUN THE <b>NUMBERS</b></a>
-<nav><a href="#videos">Videos</a><a href="#calculators">Calculators</a><a href="https://www.youtube.com/@RunTheNumbersO">YouTube</a></nav></header>
+<title>Run the Numbers — How Money Works in the US, With the Real Math</title>
+<meta name="description" content="Animated explainers and free calculators on US taxes, credit cards, retirement accounts and credit scores. Every number comes from the IRS, CFPB or Federal Reserve, or from a simulation you can rerun.">
+<link rel="canonical" href="https://eedgarhm.github.io/run-the-numbers/">
+<meta property="og:type" content="website"><meta property="og:title" content="Run the Numbers — How money works in the US, with the real math">
+<meta property="og:description" content="Animated explainers + free calculators. Official numbers, fictional people, real math.">
+<meta property="og:image" content="https://eedgarhm.github.io/run-the-numbers/assets/og-tax-brackets.jpg"><meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0E1116">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[
+{"@type":"Organization","name":"Run the Numbers","url":"https://eedgarhm.github.io/run-the-numbers/","sameAs":["https://www.youtube.com/@RunTheNumbersO"]},
+{"@type":"WebSite","name":"Run the Numbers","url":"https://eedgarhm.github.io/run-the-numbers/"}]}</script>
+</head><body>
+<header class="bar"><div class="wrap"><a class="logo" href="./">RUN THE <b>NUMBERS</b></a>
+<nav><a class="hide-sm" href="#videos">Videos</a><a class="hide-sm" href="#calculators">Calculators</a><a class="btn yt" href="https://www.youtube.com/@RunTheNumbersO?sub_confirmation=1">Subscribe</a></nav></div></header>
 
-<h1>How money works in the US, with the real math</h1>
-<p class="lead">Short animated explainers on taxes, credit cards, retirement accounts and credit scores. Every number comes from an official source (IRS, CFPB, Federal Reserve…) or from a simulation with its assumptions on screen.</p>
-<p><a href="https://www.youtube.com/@RunTheNumbersO?sub_confirmation=1"><b>Watch on YouTube →</b></a></p>
-
-<h2 id="videos">Videos</h2>
-<div class="grid">
- <a class="card" href="episodes/tax-brackets-2026.html"><div class="k">Taxes · 2026</div><h3>How do tax brackets work? A $1,000 raise, $170 more income tax</h3><p>Why a higher bracket never shrinks your take-home pay, with 2026 IRS numbers.</p></a>
- <a class="card" href="episodes/credit-card-minimum-payment.html"><div class="k">Debt</div><h3>Paying only the minimum on $8,000? The 23-year credit card math</h3><p>How card interest and minimum payments really work, month by month.</p></a>
+<div class="hero"><div class="wrap">
+ <div>
+  <div class="eyebrow">US money, explained with real math</div>
+  <h1>A raise can <span class="strike">shrink your paycheck</span>.<br><em>Wrong.</em> Let's run the numbers.</h1>
+  <p class="lead">Short animated explainers on taxes, credit cards, retirement and credit scores. Official numbers from the IRS, CFPB and Fed. Fictional people. Real math you can rerun.</p>
+  <div class="ctas"><a class="btn yt" href="https://www.youtube.com/@RunTheNumbersO?sub_confirmation=1">▶ Watch on YouTube</a><a class="btn ghost" href="#myth">Test yourself</a></div>
+ </div>
+ <div class="tv"><span class="sticker a">2026 IRS numbers</span>
+  <video autoplay muted loop playsinline poster="assets/hero-tanks.jpg" aria-label="Animated scene: a fictional worker pours her income into tax-bracket tanks"><source src="assets/hero-tanks.mp4" type="video/mp4"></video>
+  <span class="sticker b">Fictional people · real math</span></div>
 </div>
+<div class="marquee"><div>
+ <span><b>$170</b> extra tax on a $1,000 raise into the 22% bracket</span><span><b>23 years</b> to pay $8,000 at the minimum</span><span><b>11%</b> effective rate on an $80,000 salary</span><span><b>$16,100</b> standard deduction, 2026</span>
+ <span><b>$170</b> extra tax on a $1,000 raise into the 22% bracket</span><span><b>23 years</b> to pay $8,000 at the minimum</span><span><b>11%</b> effective rate on an $80,000 salary</span><span><b>$16,100</b> standard deduction, 2026</span>
+</div></div></div>
 
-<h2 id="calculators">Free calculators</h2>
-<div class="grid">
- <a class="card" href="calculators/tax-brackets-2026.html"><div class="k">Taxes</div><h3>2026 federal tax bracket calculator</h3><p>See which dollars of your salary pay which rate, and your effective rate.</p></a>
- <a class="card" href="calculators/credit-card-payoff.html"><div class="k">Debt</div><h3>Credit card payoff: minimum vs fixed payment</h3><p>How long the minimum takes, and what a fixed payment saves.</p></a>
-</div>
+<section id="myth"><div class="wrap">
+ <div class="quiz">
+  <div><div class="eyebrow" style="color:var(--acc)">Myth or math? · guess first</div>
+   <h3>Priya gets a $1,000 raise that pushes her into the 22% bracket. How much more federal income tax does she pay?</h3>
+   <div class="opts" role="group" aria-label="Choose an answer"><button class="opt" data-v="1000">$1,000+</button><button class="opt" data-v="220">$220</button><button class="opt" data-v="170">$170</button></div></div>
+  <div class="reveal" id="rev"><div class="hint">Pick an answer to see the math. <br>(Priya is fictional; 2026 single filer, wages only.)</div></div>
+ </div>
+</div></section>
 
-<footer>Education, not financial advice. Examples use fictional people. Narration in our videos is AI-generated; the research and simulations are checked against official sources. No cookies or tracking on this site.</footer>
-</div></body></html>
+<section class="alt" id="videos"><div class="wrap">
+ <div class="sec-h"><div><div class="eyebrow">Latest videos</div><h2>One question per video. Answered with numbers.</h2></div>
+  <div class="chips"><a class="chip" style="--c:var(--taxes)" href="#videos"><i></i>Taxes</a><a class="chip" style="--c:var(--debt)" href="#videos"><i></i>Debt</a><a class="chip" style="--c:var(--retire)" href="#videos"><i></i>Retirement</a><a class="chip" style="--c:var(--credit)" href="#videos"><i></i>Credit</a><a class="chip" style="--c:var(--income)" href="#videos"><i></i>Income</a></div></div>
+ <div class="eps">
+  <a class="ep" style="--c:var(--taxes)" href="episodes/tax-brackets-2026.html"><div class="th"><img src="assets/ep-tax-brackets.webp" alt="Take home less? A fictional worker with a raise letter stamped Higher Bracket" width="960" height="540" loading="lazy"><span class="play"></span></div>
+   <div class="tx"><span class="tag">Taxes · 2026</span><h3>How do tax brackets work? A $1,000 raise, $170 more income tax</h3><p>Why a higher bracket never lowers your take-home pay, poured into seven tanks.</p></div></a>
+  <a class="ep" style="--c:var(--debt)" href="episodes/credit-card-minimum-payment.html"><div class="th"><img src="assets/ep-credit-card.webp" alt="$21,831 paid for an $8,000 card, minimum only" width="960" height="540" loading="lazy"><span class="play"></span></div>
+   <div class="tx"><span class="tag">Debt</span><h3>Paying only the minimum on $8,000? The 23-year credit card math</h3><p>How interest and the minimum payment keep a balance alive for decades.</p></div></a>
+ </div>
+</div></section>
+
+<section id="calculators"><div class="wrap">
+ <div class="sec-h"><div><div class="eyebrow">Free calculators</div><h2>Now run your own numbers.</h2><p class="sub">Same math as the videos. No sign-up, no cookies, nothing leaves your browser.</p></div></div>
+ <div class="calcs">
+  <a class="calc" style="--c:var(--taxes)" href="calculators/tax-brackets-2026.html"><svg viewBox="0 0 96 96" aria-hidden="true"><rect x="6" y="62" width="18" height="28" rx="4" fill="#FFC857"/><rect x="28" y="50" width="18" height="40" rx="4" fill="#FFC857"/><rect x="50" y="34" width="18" height="56" rx="4" fill="#FFC85755" stroke="#B88A1C" stroke-width="2"/><rect x="72" y="18" width="18" height="72" rx="4" fill="none" stroke="#B88A1C" stroke-width="2"/><rect x="50" y="76" width="18" height="14" fill="#FFC857"/></svg>
+   <div><h3>2026 tax bracket calculator</h3><p>Which dollars pay 10%, 12%, 22%… and your real effective rate.</p></div></a>
+  <a class="calc" style="--c:var(--debt)" href="calculators/credit-card-payoff.html"><svg viewBox="0 0 96 96" aria-hidden="true"><rect x="8" y="22" width="80" height="52" rx="9" fill="#FF7A59"/><rect x="8" y="34" width="80" height="9" fill="#15171C"/><rect x="18" y="55" width="26" height="7" rx="3" fill="#FFF3E8"/><path d="M60 60 L72 72 L86 50" fill="none" stroke="#15171C" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+   <div><h3>Credit card payoff calculator</h3><p>Minimum vs fixed payment: months, total paid, interest saved.</p></div></a>
+ </div>
+</div></section>
+
+<section class="alt"><div class="wrap">
+ <div class="sec-h"><div><div class="eyebrow">How every video is made</div><h2>Numbers you can check.</h2></div></div>
+ <div class="steps">
+  <div class="step"><h3>Official sources only</h3><p>IRS, CFPB, Federal Reserve, SSA, state agencies. Every source is linked under the video and on its page.</p></div>
+  <div class="step"><h3>Simulated in code</h3><p>Every calculated number comes from a script with its assumptions shown on screen, so you can rerun it here.</p></div>
+  <div class="step"><h3>Checked independently</h3><p>A separate review rechecks every claim and number before publishing. Education, not financial advice.</p></div>
+ </div>
+</div></section>
+
+<section><div class="wrap"><div class="cta-band"><div><h2>A new money question, answered three times a week.</h2><p>Taxes, debt, retirement and credit. Monday, Wednesday and Friday, plus a short every day.</p></div><a class="btn yt" href="https://www.youtube.com/@RunTheNumbersO?sub_confirmation=1">▶ Subscribe on YouTube</a></div></div></section>
+
+<footer class="site"><div class="wrap">© Run the Numbers · Education, not financial advice · Examples use fictional people · Video narration is AI-generated; research and simulations are checked against official sources · No cookies or tracking on this site.</div></footer>
+<script>
+const A={"1000":"No: only the dollars above the line pay 22%.","220":"Close, but only half of the raise crosses the line.","170":"Exactly."};
+document.querySelectorAll('.opt').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.opt').forEach(o=>{o.classList.toggle('right',o.dataset.v==='170');o.classList.toggle('wrong',o.dataset.v!=='170')});
+  const r=document.getElementById('rev');
+  r.innerHTML=`<div class="hint">${A[b.dataset.v]} Her taxable income goes from $49,900 to $50,900:</div><div class="big num" id="cnt">+$0</div><div class="hint">$500 still pays 12% ($60) · $500 pays 22% ($110). Her pay after federal income tax still rises about $830.</div><p style="margin:12px 0 0"><a href="episodes/tax-brackets-2026.html" style="color:#FFC857;font-weight:700">Watch the full breakdown →</a></p>`;
+  let t0=null;const step=t=>{t0??=t;const p=Math.min(1,(t-t0)/900);document.getElementById('cnt').textContent='+$'+Math.round(170*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(step)};requestAnimationFrame(step)}));
+</script>
+</body></html>

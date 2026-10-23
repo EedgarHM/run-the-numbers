@@ -1,29 +1,24 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Credit Card Payoff Calculator</title>
-<style>
-:root{--bg:#0E1116;--panel:#161B22;--line:#2A313B;--ink:#F2EFE6;--mut:#8A93A0;--good:#3DDC97;--bad:#FF5C5C;--warn:#FFC857;--acc:#FF7A59}
-@media (prefers-color-scheme: light){:root:not([data-theme="dark"]){--bg:#F7F5EF;--panel:#FFFFFF;--line:#E2DED4;--ink:#16191F;--mut:#5D6672;--good:#13996A;--bad:#D63A3A;--warn:#B07A00;--acc:#D9512E}}
-:root[data-theme="light"]{--bg:#F7F5EF;--panel:#FFFFFF;--line:#E2DED4;--ink:#16191F;--mut:#5D6672;--good:#13996A;--bad:#D63A3A;--warn:#B07A00;--acc:#D9512E}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
-.wrap{max-width:860px;margin:0 auto;padding:28px 16px 60px}
-.brand{font-weight:700;letter-spacing:.14em;font-size:13px;color:var(--mut)}.brand b{color:var(--acc)}
-h1{font-size:30px;line-height:1.15;margin:10px 0 6px}p.lead{color:var(--mut);margin:0 0 22px}
-.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}
-label{display:block;font-size:13px;color:var(--mut);margin-bottom:6px}
-input{width:100%;padding:11px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:600 18px ui-monospace,Menlo,Consolas,monospace}
-.res{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:16px}
-.card h3{margin:0 0 4px;font-size:15px}.big{font:800 28px ui-monospace,Menlo,Consolas,monospace}.small{color:var(--mut);font-size:14px}
-.bad{color:var(--bad)}.good{color:var(--good)}.warn{color:var(--warn)}
-svg{width:100%;height:auto;display:block;margin-top:16px}
-.note{font-size:13px;color:var(--mut);margin-top:18px}
-a{color:var(--acc)}
-</style></head><body><div class="wrap">
-<a class="brand" href="../" style="font-weight:700;letter-spacing:.14em;font-size:13px;color:var(--mut);text-decoration:none">RUN THE <b>NUMBERS</b></a>
-<h1>Credit card payoff: minimum vs. fixed payment</h1>
-<p class="lead">Enter your balance and APR. See how long the minimum takes versus a fixed monthly payment.</p>
-<div class="panel"><div class="grid">
+<title>Credit Card Payoff Calculator: Minimum vs Fixed Payment | Run the Numbers</title>
+<meta name="description" content="Free credit card payoff calculator: see how long paying only the minimum takes, the total interest, and what a fixed monthly payment saves. No sign-up, no cookies.">
+<link rel="canonical" href="https://eedgarhm.github.io/run-the-numbers/calculators/credit-card-payoff.html">
+<meta property="og:title" content="Credit card payoff: minimum vs fixed payment"><meta property="og:image" content="https://eedgarhm.github.io/run-the-numbers/assets/og-credit-card.jpg"><meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0E1116">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+<style>.ctrl .g{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px}.ctrl label{font-size:14px;color:var(--mut);display:block;margin-bottom:6px;font-weight:700}
+.res{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin:18px 0}.res .kpi h3{margin:0 0 4px;font-size:16px}.big{font:800 30px "JetBrains Mono",monospace}.small{color:var(--mut);font-size:14px}
+.bad{color:var(--bad)}.good{color:var(--good)}.warn{color:var(--warn)}svg#ch{width:100%;height:auto;display:block}</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Credit Card Payoff Calculator","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+</head><body style="--c:var(--debt)">
+<header class="bar"><div class="wrap"><a class="logo" href="../">RUN THE <b>NUMBERS</b></a>
+<nav><a class="hide-sm" href="../#videos">Videos</a><a class="hide-sm" href="../#calculators">Calculators</a><a class="btn yt" href="https://www.youtube.com/@RunTheNumbersO?sub_confirmation=1">Subscribe</a></nav></div></header>
+<div class="page-hero"><div class="wrap"><div class="crumb"><a href="../">Home</a> · <span class="tag">Debt</span></div><h1>How long will the minimum payment really take?</h1>
+<p class="lead" style="color:#C9CED6;margin:12px 0 0">Enter your balance and APR. Compare paying the minimum, a fixed payment, and simply keeping your first minimum.</p></div></div>
+<div class="wrap" style="margin-top:-26px">
+<div class="ctrl"><div class="g">
  <div><label for="bal">Balance ($)</label><input id="bal" type="number" min="0" step="100" value="8000"></div>
  <div><label for="apr">APR (%)</label><input id="apr" type="number" min="0" step="0.01" value="22.36"></div>
  <div><label for="pct">Minimum: % of balance + interest</label><input id="pct" type="number" min="0.5" step="0.5" value="1"></div>
@@ -31,14 +26,17 @@ a{color:var(--acc)}
  <div><label for="fix">Your fixed payment ($/month)</label><input id="fix" type="number" min="0" step="10" value="300"></div>
 </div></div>
 <div class="res">
- <div class="panel card"><h3 class="bad">Minimum only</h3><div class="big" id="m1">–</div><div class="small" id="m2"></div></div>
- <div class="panel card"><h3 class="good">Fixed payment</h3><div class="big" id="f1">–</div><div class="small" id="f2"></div></div>
- <div class="panel card"><h3 class="warn">Keep paying your first minimum</h3><div class="big" id="k1">–</div><div class="small" id="k2"></div></div>
+ <div class="kpi"><h3 class="bad">Minimum only</h3><div class="big" id="m1">–</div><div class="small" id="m2"></div></div>
+ <div class="kpi"><h3 class="good">Fixed payment</h3><div class="big" id="f1">–</div><div class="small" id="f2"></div></div>
+ <div class="kpi"><h3 class="warn">Keep paying your first minimum</h3><div class="big" id="k1">–</div><div class="small" id="k2"></div></div>
 </div>
-<div class="panel" style="margin-top:16px"><div class="small">Balance over time</div><svg id="ch" viewBox="0 0 800 300" role="img" aria-label="Balance over time for each strategy"></svg></div>
-<p class="note">Simplified model: monthly interest = APR ÷ 12, no new purchases, no fees, minimum = the larger of (percent of balance + interest) and the floor. Your issuer's formula and daily interest calculation may differ; your statement's minimum payment warning shows your card's numbers. Education, not financial advice.<br>
+<div class="ctrl"><div class="small">Balance over time</div><svg id="ch" viewBox="0 0 800 300" role="img" aria-label="Balance over time for each strategy"></svg></div>
+<div class="cols" style="margin-top:28px"><div>
+<p class="note">Simplified model: monthly interest = APR ÷ 12, no new purchases, no fees, minimum = the larger of (percent of balance + interest) and the floor. Your issuer's formula and daily interest may differ; your statement's minimum payment warning shows your card's numbers. Education, not financial advice.<br>
 Average APR for accounts assessed interest (Aug 2026): 22.36% — <a href="https://www.federalreserve.gov/releases/g19/20261007/g19.pdf">Federal Reserve G.19</a>. Statement disclosures: <a href="https://www.consumerfinance.gov/ask-cfpb/what-is-the-three-year-payment-information-on-a-credit-card-statement-en-36/">CFPB</a>.</p>
+</div><aside class="side"><div class="box"><b>Watch the explainer</b><p class="note" style="margin:6px 0 0">$8,000 at the minimum: 23 years, month by month.</p><a class="btn yt" href="../episodes/credit-card-minimum-payment.html">▶ The 23-year math</a></div></aside></div>
 </div>
+<footer class="site" style="margin-top:64px"><div class="wrap">Education, not financial advice · No cookies: nothing you type leaves your browser · <a href="../">More videos and calculators</a></div></footer>
 <script>
 const $=id=>document.getElementById(id);
 const usd=v=>'$'+Math.round(v).toLocaleString('en-US');
@@ -58,5 +56,6 @@ function run(){const b=+$('bal').value||0,apr=+$('apr').value||0,pct=+$('pct').v
  if(fx.never){$('f1').textContent='Never';$('f2').textContent='Payment does not cover monthly interest.'}else{$('f1').textContent=yrs(fx.m);$('f2').textContent=`Total paid ${usd(fx.tot)} · saves ${usd(mn.tot-fx.tot)} vs minimum`}
  $('k1').textContent=yrs(kp.m);$('k2').textContent=`${usd(mn.first)}/month fixed · total ${usd(kp.tot)}`;
  draw([{bal:mn.bal,c:cs.getPropertyValue('--bad')},{bal:kp.bal,c:cs.getPropertyValue('--warn')},...(fx.never?[]:[{bal:fx.bal,c:cs.getPropertyValue('--good')}])],b)}
-document.querySelectorAll('input').forEach(i=>i.addEventListener('input',run));run();
-</script></body></html>
+document.querySelectorAll('.ctrl input').forEach(i=>i.addEventListener('input',run));run();
+</script>
+</body></html>

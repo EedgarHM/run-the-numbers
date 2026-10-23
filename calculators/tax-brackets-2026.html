@@ -1,41 +1,75 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>2026 Federal Tax Bracket Calculator (single filer)</title>
-<meta name="description" content="Free 2026 federal income tax bracket calculator for single filers: see which dollars pay 10%, 12%, 22%… plus your marginal and effective rate. IRS Rev. Proc. 2025-32 numbers.">
-<link rel="stylesheet" href="../style.css"></head><body><div class="wrap">
-<header class="top"><a class="brand" href="../">RUN THE <b>NUMBERS</b></a><nav><a href="../#videos">Videos</a><a href="../#calculators">Calculators</a></nav></header>
-<h1>2026 federal tax bracket calculator</h1>
-<p class="lead">Single filer, wages only, standard deduction. See which dollars of your salary pay which rate.</p>
-<div class="panel">
- <div class="grid">
-  <div><label for="sal">Yearly salary ($)</label><input id="sal" type="number" min="0" step="1000" value="80000"></div>
-  <div><label for="ded">Deduction ($)</label><input id="ded" type="number" min="0" step="100" value="16100"></div>
+<title>2026 Tax Bracket Calculator: Which Dollars Pay 10%, 12%, 22%? | Run the Numbers</title>
+<meta name="description" content="Free 2026 federal income tax bracket calculator for single filers. Drag your salary and watch each bracket fill: see your federal income tax, marginal rate and effective rate (IRS Rev. Proc. 2025-32).">
+<link rel="canonical" href="https://eedgarhm.github.io/run-the-numbers/calculators/tax-brackets-2026.html">
+<meta property="og:title" content="2026 tax bracket calculator: which dollars pay which rate?"><meta property="og:image" content="https://eedgarhm.github.io/run-the-numbers/assets/og-tax-brackets.jpg"><meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0E1116">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+<style>
+.tanks{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;align-items:end;height:300px;margin-top:8px}
+.tk{position:relative;border:2px solid #9FB3C8;border-top:0;border-radius:0 0 10px 10px;background:linear-gradient(90deg,#ffffff10,transparent);overflow:hidden}
+.tk .w{position:absolute;left:0;right:0;bottom:0;background:var(--taxes);transition:height .45s cubic-bezier(.2,.8,.2,1)}
+.tk .w:before{content:"";position:absolute;left:0;right:0;top:-6px;height:12px;background:color-mix(in srgb,var(--taxes) 70%,#fff);border-radius:50%;opacity:.8}
+.tk .t{position:absolute;left:0;right:0;bottom:6px;text-align:center;font:800 13px "JetBrains Mono",monospace;color:#15171C}
+.lab{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-top:6px;text-align:center}
+.lab b{display:block;font:800 16px "JetBrains Mono",monospace}.lab span{font-size:11px;color:var(--mut)}
+.night{background:var(--night);color:var(--cream);border-radius:24px;padding:22px}
+@media (max-width:560px){.tanks{height:220px;gap:4px}.lab{gap:4px}.lab span{font-size:9px}.tk .t{font-size:10px}}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"2026 Federal Tax Bracket Calculator","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"url":"https://eedgarhm.github.io/run-the-numbers/calculators/tax-brackets-2026.html"}</script>
+</head><body style="--c:var(--taxes)">
+<header class="bar"><div class="wrap"><a class="logo" href="../">RUN THE <b>NUMBERS</b></a>
+<nav><a class="hide-sm" href="../#videos">Videos</a><a class="hide-sm" href="../#calculators">Calculators</a><a class="btn yt" href="https://www.youtube.com/@RunTheNumbersO?sub_confirmation=1">Subscribe</a></nav></div></header>
+<div class="page-hero"><div class="wrap"><div class="crumb"><a href="../">Home</a> · <span class="tag">Taxes · 2026</span></div><h1>Which dollars of your salary pay which rate?</h1>
+<p class="lead" style="color:#C9CED6;margin:12px 0 0">Drag your salary. Your taxable income pours into seven tanks, one per 2026 bracket. Only the top tank you reach pays the top rate.</p></div></div>
+<div class="wrap" style="margin-top:-26px">
+ <div class="ctrl">
+  <div class="field"><label for="sal">Yearly salary <output id="salo"></output></label><input id="sal" type="range" min="0" max="300000" step="500" value="80000"></div>
+  <div class="grid" style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+   <div><label class="note" for="saln">Or type it</label><input id="saln" type="number" min="0" step="1000" value="80000"></div>
+   <div><label class="note" for="ded">Deduction (2026 standard: $16,100)</label><input id="ded" type="number" min="0" step="100" value="16100"></div>
+  </div>
  </div>
- <div class="grid" style="margin-top:16px">
-  <div><div class="note">Taxable income</div><div class="big" id="ti">—</div></div>
-  <div><div class="note">Federal income tax</div><div class="big" id="tx">—</div></div>
-  <div><div class="note">Marginal rate (next dollar)</div><div class="big" id="mr">—</div></div>
-  <div><div class="note">Effective rate (tax ÷ salary)</div><div class="big" id="er">—</div></div>
+ <div class="kpis">
+  <div class="kpi"><div class="l">Taxable income</div><div class="v" id="ti">—</div></div>
+  <div class="kpi"><div class="l">Federal income tax</div><div class="v" id="tx">—</div></div>
+  <div class="kpi"><div class="l">Marginal rate</div><div class="v" id="mr">—</div><div class="note">on your next dollar</div></div>
+  <div class="kpi"><div class="l">Effective rate</div><div class="v" id="er" style="color:var(--good)">—</div><div class="note">tax ÷ salary</div></div>
  </div>
- <table style="margin-top:18px"><thead><tr><th>Slice</th><th class="n">Dollars in slice</th><th class="n">Rate</th><th class="n">Tax</th></tr></thead><tbody id="rows"></tbody></table>
+ <div class="night">
+  <div class="eyebrow">Your income in the 2026 brackets · single filer</div>
+  <div class="tanks" id="tanks"></div><div class="lab" id="lab"></div>
+ </div>
+ <div class="share"><button class="btn ghost" id="copy" type="button">Copy a link to this result</button><span class="note" id="copied"></span></div>
+ <div class="cols" style="margin-top:28px"><div>
+  <h2 style="font-size:28px">How to read this</h2>
+  <p>Each tank holds one bracket. Your taxable income (salary minus the deduction) fills the 10% tank first, then overflows into 12%, then 22%, and so on. Each tank only taxes the dollars inside it, which is why a raise can never make your federal income tax bill higher than the raise itself.</p>
+  <p class="note">2026 single brackets and $16,100 standard deduction from <a href="https://www.irs.gov/pub/irs-drop/rp-25-32.pdf">IRS Rev. Proc. 2025-32</a>. Federal income tax only: no credits, no other income, no state taxes, no Social Security or Medicare. Paycheck withholding is a separate estimate. Education, not financial advice.</p>
+ </div><aside class="side"><div class="box"><b>Watch the explainer</b><p class="note" style="margin:6px 0 0">A $1,000 raise into the 22% bracket, poured into the same tanks.</p><a class="btn yt" href="../episodes/tax-brackets-2026.html">▶ How tax brackets work</a></div></aside></div>
 </div>
-<p class="note">2026 single brackets and $16,100 standard deduction from IRS Rev. Proc. 2025-32. Federal income tax only; no credits, no other income, no state taxes. This is an estimate for learning, not tax advice; withholding on your paycheck is a separate estimate.</p>
-<p>Watch the explainer: <a href="../episodes/tax-brackets-2026.html">How do tax brackets work? →</a></p>
-<footer>Education, not financial advice. <a href="../">More videos and calculators</a></footer>
-</div>
+<footer class="site" style="margin-top:64px"><div class="wrap">Education, not financial advice · No cookies: nothing you type leaves your browser · <a href="../">More videos and calculators</a></footer>
 <script>
-const BR=[[12400,10],[50400,12],[105700,22],[201775,24],[256225,32],[640600,35],[Infinity,37]];
-const $=id=>document.getElementById(id);
-const money=v=>'$'+Math.round(v).toLocaleString('en-US');
-function run(){
-  const sal=Math.max(0,+$('sal').value||0),ded=Math.max(0,+$('ded').value||0),ti=Math.max(0,sal-ded);
-  let lo=0,tax=0,mr=10,rows='';
-  if(ded>0)rows+=`<tr><td>Deduction (not taxed)</td><td class="n">${money(Math.min(ded,sal))}</td><td class="n">0%</td><td class="n">$0</td></tr>`;
-  for(const [top,r] of BR){
-    if(ti>lo){const part=Math.min(ti,top)-lo,t=part*r/100;tax+=t;mr=r;
-      rows+=`<tr><td>${money(lo)} – ${top===Infinity?'and up':money(top)}</td><td class="n">${money(part)}</td><td class="n">${r}%</td><td class="n">${money(t)}</td></tr>`}
-    lo=top}
-  $('ti').textContent=money(ti);$('tx').textContent=money(tax);$('mr').textContent=(ti>0?mr:0)+'%';
-  $('er').textContent=sal>0?(tax/sal*100).toFixed(1)+'%':'—';$('rows').innerHTML=rows}
-$('sal').addEventListener('input',run);$('ded').addEventListener('input',run);run();
-</script></body></html>
+const BR=[[12400,10],[50400,12],[105700,22],[201775,24],[256225,32],[640600,35],[1000000,37]];
+const LAB=['$0–12.4k','–50.4k','–105.7k','–201.8k','–256.2k','–640.6k','640.6k+'];
+const $=id=>document.getElementById(id),money=v=>'$'+Math.round(v).toLocaleString('en-US');
+const tanks=$('tanks'),lab=$('lab');
+BR.forEach(([,r],i)=>{const t=document.createElement('div');t.className='tk';t.style.height=(38+(r-10)/27*62)+'%';t.innerHTML='<div class="w"></div><div class="t"></div>';tanks.appendChild(t);
+  lab.insertAdjacentHTML('beforeend',`<div><b>${r}%</b><span>${LAB[i]}</span></div>`)});
+const q=new URLSearchParams(location.search);if(q.get('salary')){$('sal').value=$('saln').value=+q.get('salary')}if(q.get('deduction'))$('ded').value=+q.get('deduction');
+function run(src){
+  if(src==='n')$('sal').value=$('saln').value;else $('saln').value=$('sal').value;
+  const sal=Math.max(0,+$('saln').value||0),ded=Math.max(0,+$('ded').value||0),ti=Math.max(0,sal-ded);$('salo').textContent=money(sal);
+  let lo=0,tax=0,mr=0;
+  [...tanks.children].forEach((t,i)=>{const [top,r]=BR[i];const part=Math.max(0,Math.min(ti,top)-lo),share=part/(top-lo);
+    const tx=part*r/100;tax+=tx;if(part>0)mr=r;
+    const w=t.querySelector('.w');w.style.height=(part>0?Math.max(6,share*100):0)+'%';w.style.visibility=part>0?'visible':'hidden';t.querySelector('.t').textContent=part>0?money(tx):'';lo=top});
+  $('ti').textContent=money(ti);$('tx').textContent=money(tax);$('mr').textContent=mr+'%';$('er').textContent=sal>0?(tax/sal*100).toFixed(1)+'%':'—'}
+$('sal').addEventListener('input',()=>run('r'));$('saln').addEventListener('input',()=>run('n'));$('ded').addEventListener('input',()=>run('n'));
+$('copy').addEventListener('click',()=>{const u=location.origin+location.pathname+'?salary='+$('saln').value+'&deduction='+$('ded').value;
+  navigator.clipboard?.writeText(u).then(()=>$('copied').textContent='Link copied.',()=>$('copied').textContent=u)});
+run('n');
+</script>
+</body></html>
