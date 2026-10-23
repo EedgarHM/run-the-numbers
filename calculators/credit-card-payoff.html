@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Credit Card Payoff Calculator</title>
+<style>
+:root{--bg:#0E1116;--panel:#161B22;--line:#2A313B;--ink:#F2EFE6;--mut:#8A93A0;--good:#3DDC97;--bad:#FF5C5C;--warn:#FFC857;--acc:#FF7A59}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]){--bg:#F7F5EF;--panel:#FFFFFF;--line:#E2DED4;--ink:#16191F;--mut:#5D6672;--good:#13996A;--bad:#D63A3A;--warn:#B07A00;--acc:#D9512E}}
+:root[data-theme="light"]{--bg:#F7F5EF;--panel:#FFFFFF;--line:#E2DED4;--ink:#16191F;--mut:#5D6672;--good:#13996A;--bad:#D63A3A;--warn:#B07A00;--acc:#D9512E}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+.wrap{max-width:860px;margin:0 auto;padding:28px 16px 60px}
+.brand{font-weight:700;letter-spacing:.14em;font-size:13px;color:var(--mut)}.brand b{color:var(--acc)}
+h1{font-size:30px;line-height:1.15;margin:10px 0 6px}p.lead{color:var(--mut);margin:0 0 22px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}
+label{display:block;font-size:13px;color:var(--mut);margin-bottom:6px}
+input{width:100%;padding:11px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:600 18px ui-monospace,Menlo,Consolas,monospace}
+.res{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:16px}
+.card h3{margin:0 0 4px;font-size:15px}.big{font:800 28px ui-monospace,Menlo,Consolas,monospace}.small{color:var(--mut);font-size:14px}
+.bad{color:var(--bad)}.good{color:var(--good)}.warn{color:var(--warn)}
+svg{width:100%;height:auto;display:block;margin-top:16px}
+.note{font-size:13px;color:var(--mut);margin-top:18px}
+a{color:var(--acc)}
+</style></head><body><div class="wrap">
+<a class="brand" href="../" style="font-weight:700;letter-spacing:.14em;font-size:13px;color:var(--mut);text-decoration:none">RUN THE <b>NUMBERS</b></a>
+<h1>Credit card payoff: minimum vs. fixed payment</h1>
+<p class="lead">Enter your balance and APR. See how long the minimum takes versus a fixed monthly payment.</p>
+<div class="panel"><div class="grid">
+ <div><label for="bal">Balance ($)</label><input id="bal" type="number" min="0" step="100" value="8000"></div>
+ <div><label for="apr">APR (%)</label><input id="apr" type="number" min="0" step="0.01" value="22.36"></div>
+ <div><label for="pct">Minimum: % of balance + interest</label><input id="pct" type="number" min="0.5" step="0.5" value="1"></div>
+ <div><label for="floor">Minimum floor ($)</label><input id="floor" type="number" min="0" step="5" value="25"></div>
+ <div><label for="fix">Your fixed payment ($/month)</label><input id="fix" type="number" min="0" step="10" value="300"></div>
+</div></div>
+<div class="res">
+ <div class="panel card"><h3 class="bad">Minimum only</h3><div class="big" id="m1">–</div><div class="small" id="m2"></div></div>
+ <div class="panel card"><h3 class="good">Fixed payment</h3><div class="big" id="f1">–</div><div class="small" id="f2"></div></div>
+ <div class="panel card"><h3 class="warn">Keep paying your first minimum</h3><div class="big" id="k1">–</div><div class="small" id="k2"></div></div>
+</div>
+<div class="panel" style="margin-top:16px"><div class="small">Balance over time</div><svg id="ch" viewBox="0 0 800 300" role="img" aria-label="Balance over time for each strategy"></svg></div>
+<p class="note">Simplified model: monthly interest = APR ÷ 12, no new purchases, no fees, minimum = the larger of (percent of balance + interest) and the floor. Your issuer's formula and daily interest calculation may differ; your statement's minimum payment warning shows your card's numbers. Education, not financial advice.<br>
+Average APR for accounts assessed interest (Aug 2026): 22.36% — <a href="https://www.federalreserve.gov/releases/g19/20261007/g19.pdf">Federal Reserve G.19</a>. Statement disclosures: <a href="https://www.consumerfinance.gov/ask-cfpb/what-is-the-three-year-payment-information-on-a-credit-card-statement-en-36/">CFPB</a>.</p>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const usd=v=>'$'+Math.round(v).toLocaleString('en-US');
+function sim(b,apr,pct,floor,fixed){const r=apr/100/12;let s=b,tot=0,m=0,bal=[s];const first=Math.max(pct/100*s+s*r,floor);
+ while(s>0.005&&m<1200){const i=s*r;const mn=Math.max(pct/100*s+i,floor);const p=Math.min(fixed?fixed:mn,s+i);if(fixed&&p<=i){return{never:true,bal,first}}s=s+i-p;tot+=p;m++;bal.push(Math.max(0,s))}
+ return{m,tot,bal,first,never:m>=1200}}
+function yrs(m){const y=Math.floor(m/12),mo=m%12;return (y?y+' yr ':'')+(mo?mo+' mo':'')}
+function draw(series,b){const W=800,H=300,L=56,R=10,T=10,B=30;const X=Math.max(...series.map(s=>s.bal.length-1),1);
+ const xs=i=>L+(W-L-R)*i/X,ys=v=>T+(H-T-B)*(1-v/b);let g='';
+ for(let k=0;k<=4;k++){const v=b*k/4;g+=`<line x1="${L}" x2="${W-R}" y1="${ys(v)}" y2="${ys(v)}" stroke="currentColor" opacity=".12"/><text x="${L-6}" y="${ys(v)+4}" font-size="11" text-anchor="end" fill="currentColor" opacity=".6">${usd(v)}</text>`}
+ for(let y=0;y*12<=X;y+=Math.max(1,Math.ceil(X/12/8)))g+=`<text x="${xs(y*12)}" y="${H-8}" font-size="11" text-anchor="middle" fill="currentColor" opacity=".6">${y}y</text>`;
+ series.forEach(s=>{g+=`<polyline fill="none" stroke="${s.c}" stroke-width="3" points="${s.bal.map((v,i)=>xs(i).toFixed(1)+','+ys(v).toFixed(1)).join(' ')}"/>`});
+ $('ch').innerHTML=g;$('ch').style.color=getComputedStyle(document.body).color}
+function run(){const b=+$('bal').value||0,apr=+$('apr').value||0,pct=+$('pct').value||1,floor=+$('floor').value||0,fix=+$('fix').value||0;if(b<=0)return;
+ const mn=sim(b,apr,pct,floor,0),fx=sim(b,apr,pct,floor,fix),kp=sim(b,apr,pct,floor,mn.first);const cs=getComputedStyle(document.documentElement);
+ $('m1').textContent=mn.never?'Never':yrs(mn.m);$('m2').textContent=mn.never?'':`Total paid ${usd(mn.tot)} · interest ${usd(mn.tot-b)}`;
+ if(fx.never){$('f1').textContent='Never';$('f2').textContent='Payment does not cover monthly interest.'}else{$('f1').textContent=yrs(fx.m);$('f2').textContent=`Total paid ${usd(fx.tot)} · saves ${usd(mn.tot-fx.tot)} vs minimum`}
+ $('k1').textContent=yrs(kp.m);$('k2').textContent=`${usd(mn.first)}/month fixed · total ${usd(kp.tot)}`;
+ draw([{bal:mn.bal,c:cs.getPropertyValue('--bad')},{bal:kp.bal,c:cs.getPropertyValue('--warn')},...(fx.never?[]:[{bal:fx.bal,c:cs.getPropertyValue('--good')}])],b)}
+document.querySelectorAll('input').forEach(i=>i.addEventListener('input',run));run();
+</script></body></html>

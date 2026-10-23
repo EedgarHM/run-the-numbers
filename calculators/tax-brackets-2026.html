@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>2026 Federal Tax Bracket Calculator (single filer)</title>
+<meta name="description" content="Free 2026 federal income tax bracket calculator for single filers: see which dollars pay 10%, 12%, 22%… plus your marginal and effective rate. IRS Rev. Proc. 2025-32 numbers.">
+<link rel="stylesheet" href="../style.css"></head><body><div class="wrap">
+<header class="top"><a class="brand" href="../">RUN THE <b>NUMBERS</b></a><nav><a href="../#videos">Videos</a><a href="../#calculators">Calculators</a></nav></header>
+<h1>2026 federal tax bracket calculator</h1>
+<p class="lead">Single filer, wages only, standard deduction. See which dollars of your salary pay which rate.</p>
+<div class="panel">
+ <div class="grid">
+  <div><label for="sal">Yearly salary ($)</label><input id="sal" type="number" min="0" step="1000" value="80000"></div>
+  <div><label for="ded">Deduction ($)</label><input id="ded" type="number" min="0" step="100" value="16100"></div>
+ </div>
+ <div class="grid" style="margin-top:16px">
+  <div><div class="note">Taxable income</div><div class="big" id="ti">—</div></div>
+  <div><div class="note">Federal income tax</div><div class="big" id="tx">—</div></div>
+  <div><div class="note">Marginal rate (next dollar)</div><div class="big" id="mr">—</div></div>
+  <div><div class="note">Effective rate (tax ÷ salary)</div><div class="big" id="er">—</div></div>
+ </div>
+ <table style="margin-top:18px"><thead><tr><th>Slice</th><th class="n">Dollars in slice</th><th class="n">Rate</th><th class="n">Tax</th></tr></thead><tbody id="rows"></tbody></table>
+</div>
+<p class="note">2026 single brackets and $16,100 standard deduction from IRS Rev. Proc. 2025-32. Federal income tax only; no credits, no other income, no state taxes. This is an estimate for learning, not tax advice; withholding on your paycheck is a separate estimate.</p>
+<p>Watch the explainer: <a href="../episodes/tax-brackets-2026.html">How do tax brackets work? →</a></p>
+<footer>Education, not financial advice. <a href="../">More videos and calculators</a></footer>
+</div>
+<script>
+const BR=[[12400,10],[50400,12],[105700,22],[201775,24],[256225,32],[640600,35],[Infinity,37]];
+const $=id=>document.getElementById(id);
+const money=v=>'$'+Math.round(v).toLocaleString('en-US');
+function run(){
+  const sal=Math.max(0,+$('sal').value||0),ded=Math.max(0,+$('ded').value||0),ti=Math.max(0,sal-ded);
+  let lo=0,tax=0,mr=10,rows='';
+  if(ded>0)rows+=`<tr><td>Deduction (not taxed)</td><td class="n">${money(Math.min(ded,sal))}</td><td class="n">0%</td><td class="n">$0</td></tr>`;
+  for(const [top,r] of BR){
+    if(ti>lo){const part=Math.min(ti,top)-lo,t=part*r/100;tax+=t;mr=r;
+      rows+=`<tr><td>${money(lo)} – ${top===Infinity?'and up':money(top)}</td><td class="n">${money(part)}</td><td class="n">${r}%</td><td class="n">${money(t)}</td></tr>`}
+    lo=top}
+  $('ti').textContent=money(ti);$('tx').textContent=money(tax);$('mr').textContent=(ti>0?mr:0)+'%';
+  $('er').textContent=sal>0?(tax/sal*100).toFixed(1)+'%':'—';$('rows').innerHTML=rows}
+$('sal').addEventListener('input',run);$('ded').addEventListener('input',run);run();
+</script></body></html>
